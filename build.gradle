@@ -1,0 +1,19 @@
+
+group = 'com.jobits.pos.reserva.client.rest'
+version = '0.0.1'
+description = 'JoBits POS REST:Reserva'
+
+bootJar {
+    enabled = false
+}
+
+jar {
+    enabled = true
+}
+
+
+dependencies {
+    implementation 'org.jobits.pos:org.jobits.pos.reserva:1.1.2'	
+	
+}
+
