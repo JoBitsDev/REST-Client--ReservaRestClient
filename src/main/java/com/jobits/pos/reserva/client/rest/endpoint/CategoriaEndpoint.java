@@ -9,8 +9,11 @@ import com.jobits.pos.reserva.core.domain.Categoria;
 import com.jobits.pos.reserva.core.module.ReservaCoreModule;
 import com.jobits.pos.reserva.core.usecase.CategoriaUseCase;
 import com.root101.clean.core.app.usecase.AbstractUseCaseImpl;
+import com.root101.clean.core.app.usecase.CRUDUseCase;
 import java.beans.PropertyChangeListener;
 import java.util.List;
+import org.jobits.pos.client.rest.assembler.CrudModelAssembler;
+import org.jobits.pos.client.rest.endpoint.CrudRestServiceTemplate;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -27,49 +30,23 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequestMapping(path = "/categoria")
-public class CategoriaEndpoint extends AbstractUseCaseImpl implements CategoriaUseCase {
+public class CategoriaEndpoint extends CrudRestServiceTemplate<Categoria> {
 
-    private final CategoriaUseCase uc = ReservaCoreModule.getInstance().getImplementation(CategoriaUseCase.class);
+    private final CrudModelAssembler<Categoria> a = new CrudModelAssembler<Categoria>(CategoriaEndpoint.class) {
+        @Override
+        public Object getId(Categoria entity) {
+            return entity.getIdcategoria();
+        }
+    };
 
     @Override
-    @GetMapping("/count")
-    public int count() throws RuntimeException {
-        return uc.count();
+    public CrudModelAssembler<Categoria> getAssembler() {
+        return a;
     }
 
     @Override
-    @PostMapping("/create")
-    public Categoria create(@RequestBody Categoria t) throws RuntimeException {
-        return uc.create(t);
-    }
-
-    @Override
-    public Categoria destroy(Categoria t) throws RuntimeException {
-        return uc.destroy(t);
-    }
-
-    @Override
-    @PostMapping("/destroy/{id}")
-    public Categoria destroyById(@PathVariable Object o) throws RuntimeException {
-        return uc.destroyById(o);
-    }
-
-    @Override
-    @PostMapping("/edit")
-    public Categoria edit(@RequestBody Categoria t) throws RuntimeException {
-        return uc.edit(t);
-    }
-
-    @Override
-    @GetMapping("/findall")
-    public List<Categoria> findAll() throws RuntimeException {
-        return uc.findAll();
-    }
-
-    @Override
-    @GetMapping("/find/{id}")
-    public Categoria findBy(@PathVariable Object o) throws RuntimeException {
-        return uc.findBy(o);
+    public CRUDUseCase<Categoria> getUc() {
+        return ReservaCoreModule.getInstance().getImplementation(CategoriaUseCase.class);
     }
 
 }
