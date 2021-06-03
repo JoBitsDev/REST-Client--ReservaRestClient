@@ -8,16 +8,9 @@ package com.jobits.pos.reserva.client.rest.endpoint;
 import com.jobits.pos.reserva.core.domain.Categoria;
 import com.jobits.pos.reserva.core.module.ReservaCoreModule;
 import com.jobits.pos.reserva.core.usecase.CategoriaUseCase;
-import com.root101.clean.core.app.usecase.AbstractUseCaseImpl;
 import com.root101.clean.core.app.usecase.CRUDUseCase;
-import java.beans.PropertyChangeListener;
-import java.util.List;
 import org.jobits.pos.client.rest.assembler.CrudModelAssembler;
 import org.jobits.pos.client.rest.endpoint.CrudRestServiceTemplate;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -49,4 +42,4 @@ public class CategoriaEndpoint extends CrudRestServiceTemplate<Categoria> {
         return ReservaCoreModule.getInstance().getImplementation(CategoriaUseCase.class);
     }
 
-}
+    }
