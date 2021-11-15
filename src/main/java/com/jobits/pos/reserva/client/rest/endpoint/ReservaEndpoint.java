@@ -11,6 +11,8 @@ import com.jobits.pos.reserva.core.module.ReservaCoreModule;
 import com.jobits.pos.reserva.core.usecase.CategoriaUseCase;
 import com.jobits.pos.reserva.core.usecase.ReservaUseCase;
 import com.root101.clean.core.app.usecase.CRUDUseCase;
+import java.time.LocalDate;
+import java.util.List;
 import org.jobits.pos.client.rest.assembler.CrudModelAssembler;
 import org.jobits.pos.client.rest.endpoint.CrudRestServiceTemplate;
 import org.springframework.http.HttpStatus;
@@ -66,16 +68,12 @@ public class ReservaEndpoint extends CrudRestServiceTemplate<Reserva> {
         return ResponseEntity.ok(r);
     }
     
-    @GetMapping(EDIT_PATH)
-    ResponseEntity<Reserva> findDisponibles(@PathVariable("id") int idReserva, @RequestBody Reserva editedReserva) {
+    @GetMapping(RESERVAS_DISP_PATH)
+    ResponseEntity<List<Reserva>> findDisponibles(@PathVariable("aaaa") int aaaa,
+            @PathVariable("mm") int mm,
+            @PathVariable("dd") int dd) {
        
-        var oldReserva = getUc().getReservasDisponibles(Localda);
-        if (oldReserva == null) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Id no valido");
-
-        }
-        var r = getUc().edit(editedReserva);
-        return ResponseEntity.ok(r);
+        return ResponseEntity.ok(getUc().getReservasDisponibles(LocalDate.of(aaaa, mm, dd)));
     }
     
     
